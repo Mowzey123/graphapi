@@ -32,30 +32,22 @@ export default {
             auth.checkSignedOut(req);
             await Joi.validate(args,validation.signUpvalidation,{abortEarly:false});
             args.password = await hash(args.password, 12);
-            return User.create(args);
+            req.session={};
+            const newuser = await User.create(args);
+            req.session.userid = newuser._id;
+            return newuser;
         },
         Signin: async (root: any, args: any,{req}:any,info:any) => {
             if(req.session){
-                return User.findById(req.session.id);
+                return User.findById(req.session.userid);
             }
             await Joi.validate(args,validation.signinvalidation,{abortEarly:false});
-            const user = await User.findOne({email:args.email});
-            if(user){
-                const temppass = user.password.toString();
-                if(await compare(args.password,temppass)){
-                    delete user.password;
-                    // req.session = {};
-                    //Session
-                    console.log(req.req.session);
-                    req.req.session.Session.id = user._id;//sets user cookie on response
-                    
-                    return req;
-                }else{
-                    throw new AuthenticationError("Invalid Password");
-                }
-            }else{
-                throw new AuthenticationError("Email address not found");
+            const userobj = await auth.signInUser(args);
+            if(userobj){
+                if(!req.session) req.session = {};
+                req.session.userid = userobj._id;
             }
+            return userobj;
         },
         Signout: (root: any, args: any,{req,res}:any,info:any)=>{
             return auth.Signout(req,res);

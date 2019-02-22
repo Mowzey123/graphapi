@@ -3,16 +3,7 @@ import { compare } from 'bcryptjs';
 
 const UserSchema = new Schema({
     email: { type: String, 
-            validate:{
-                validator:async (email: string):Promise<any> => 
-                {
-                    await User.where(email).count() === 0
-                },
-                message: () => {
-                    console.log("Email address is already in use");
-                    return `Email address is already in use`;
-                }
-            }    
+            unique:true   
         },
     password: { type: String, required: true,trim:true },
     username: { type: String, required: true, lowercase: true,trim:true },
@@ -27,7 +18,10 @@ UserSchema.statics.notexist = async function(option:{}){
 
 //Usermethods
 UserSchema.methods.comparePasswords = function(password:string){
+    console.log(this.password);
     return compare(password,this.password);
 }
+
 const User = model('User', UserSchema);
+
 export default User;

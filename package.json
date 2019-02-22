@@ -3,11 +3,12 @@
   "main": "src/index.ts",
   "license": "MIT",
   "scripts": {
-    "start": "ts-node src/index.ts"
+    "start": "ts-node-dev src/*.ts"
   },
   "dependencies": {
     "@types/bcryptjs": "^2.4.2",
     "@types/connect-mongo": "0.0.40",
+    "@types/cookie-parser": "^1.4.1",
     "@types/dotenv": "^6.1.0",
     "@types/express-session": "^1.15.12",
     "@types/joi": "^14.3.1",
@@ -16,18 +17,27 @@
     "bcryptjs": "^2.4.3",
     "connect-mongo": "^2.0.3",
     "connect-mongodb-session": "^2.1.1",
+    "cookie-parser": "^1.4.4",
     "dotenv": "^6.2.0",
     "express": "^4.16.4",
     "express-session": "^1.15.6",
     "graphql": "^14.1.1",
     "joi": "^14.3.1",
+    "jwt-simple": "^0.5.5",
     "mongoose": "^5.4.12",
+    "passport": "^0.4.0",
+    "passport-jwt": "^4.0.0",
     "ts-node": "^8.0.2",
     "tslint": "^5.12.1",
     "typescript": "^3.3.3"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/Mowzey123/graphapi.git"
+    "url": "https://github.com/Mowzey123/Cognative-Platforms.git"
+  },
+  "devDependencies": {
+    "@types/passport": "^1.0.0",
+    "@types/passport-jwt": "^3.0.1",
+    "ts-node-dev": "^1.0.0-pre.32"
   }
 }

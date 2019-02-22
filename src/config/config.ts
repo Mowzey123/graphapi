@@ -19,7 +19,12 @@ switch (process.env.NODE_ENV) {
 dotenv.config({ path: workingpath });
 
 
-
+export const jswtconfig = {  
+  jwtSecret: "MyS3cr3tK3Y",
+  jwtSession: {
+      session: false
+  }
+};
 export const APP_ID = process.env.APP_ID;
 export const LOG_LEVEL = process.env.LOG_LEVEL;
 export const HOST = process.env.HOST;
